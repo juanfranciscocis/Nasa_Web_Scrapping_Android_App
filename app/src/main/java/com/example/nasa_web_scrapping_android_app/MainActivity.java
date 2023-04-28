@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         webScrapper1.execute(url);
 
 
+        //TODO:DELETE THIS BUTTON
+
 
         // when debug button is clicked, print the links scrapped from the Data singleton
 
@@ -85,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        //TODO: WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        //TODO WHEN A IMAGE IS CLICKED SHOW LOADING ANIMATION
+
+        //TODO:ACTIVITY 2...
 
 
 
