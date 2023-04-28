@@ -2,6 +2,7 @@ package com.example.nasa_web_scrapping_android_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -80,6 +81,101 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+        });
+
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView2.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
+            }
+
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView2).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView2).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            }
+
+
+        });
+
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView3.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
+            }
+
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView3).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView3).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            }
+
+
+        });
+
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView4.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
+            }
+
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView4).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView4).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            }
+
+
+        });
+
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView5.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
+            }
+
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView5).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView5).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            }
+
+
+        });
+
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView6.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
+            }
+
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView6).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView6).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            }
+
+
+        });
+
+
+        //TODO: CACHE! Y RANDOM! Y MULTIDOWNLOAD!, NO SE PUEDEN REPETIR
+
+
+        //Floating button to go to the next screen
+        nextScreen.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity2.class);
+            startActivity(intent);
         });
 
 
