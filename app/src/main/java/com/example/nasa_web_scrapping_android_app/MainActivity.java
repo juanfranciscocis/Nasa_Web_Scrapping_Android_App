@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 
@@ -14,7 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,36 +62,28 @@ public class MainActivity extends AppCompatActivity {
         webScrapper1.execute(url);
 
 
-        //TODO:DELETE THIS BUTTON
-
-
-        // when debug button is clicked, print the links scrapped from the Data singleton
-
-        /*
-        debug.setOnClickListener(v -> {
-            ArrayList<String> linksScrapped1 = data.getLinksScrapped1();
-            for (String link : linksScrapped1) {
-                Log.d("Data read", link);
+        AtomicInteger counter = new AtomicInteger();
+        AtomicInteger imagesInMemory = new AtomicInteger();
+        AtomicReference<Boolean> imageClicked = new AtomicReference<>(false);
+        //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
+        imageView1.setOnClickListener(v -> {
+            if (!imageClicked.get()){
+                imageClicked.set(true);
+                imagesInMemory.set(data.getLinksScrapped1().size());
             }
-        });
 
-         */
-
-        debug.setOnClickListener(v->{
-            //WebScraper 2 -> Getting the images links from the articles
-            WebScrapper2 webScrapper2 = new WebScrapper2();
-            try {
-                webScrapper2.execute(new URL(data.getLinksScrapped1().get(0)));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+            if (counter.get() < imagesInMemory.get()) {
+                new WebScrapperImageSet(imageView1).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
+            } else {
+                counter.set(0);
+                new WebScrapperImageSet(imageView1).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
+
 
         });
 
-        //TODO: WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
-        //TODO WHEN A IMAGE IS CLICKED SHOW LOADING ANIMATION
 
-        //TODO:ACTIVITY 2...
+
 
 
 
