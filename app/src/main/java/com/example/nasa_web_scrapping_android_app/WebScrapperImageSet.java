@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +16,7 @@ import org.jsoup.nodes.Element;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
     private Data data = Data.getInstance();
@@ -32,6 +34,8 @@ public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... url) {
+
+
 
 
 
@@ -71,9 +75,20 @@ public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
             }
 
 
+
         // GET THE IMAGE AND SET IT TO THE IMAGEVIEW
         Bitmap bitmap = null;
         HttpURLConnection connection = null;
+        Map<String,Bitmap> bitmaps = data.getBitmaps();
+        // if the bitmap is not in the cache, download the bitmap
+        if (bitmaps.containsKey(title)) {
+            bitmap = bitmaps.get(title);
+            Log.d("Bitmap from Data: ","CHECK!!!");
+            return bitmap;
+        }
+
+
+
 
         try {
 
@@ -93,6 +108,14 @@ public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
         catch (Exception e) {
             error = true;
         }
+        try {
+
+            connection.disconnect();
+
+        }catch (Exception e) {
+            error = true;
+        }
+
 
 
         return bitmap;
@@ -117,6 +140,13 @@ public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
             return;
         }
         imageView.setImageBitmap(bitmap);
+    }
+
+
+    // create a new instance of this class and execute it on a separate thread
+    public static void executeOnThreadPool(ImageView imageView, String... url) {
+        WebScrapperImageSet task = new WebScrapperImageSet(imageView);
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
     }
 
 }

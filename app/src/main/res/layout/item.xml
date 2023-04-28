@@ -5,15 +5,14 @@
     android:layout_height="match_parent">
 
 
-
     <GridLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:useDefaultMargins="true"
+        android:layout_weight="1"
         android:columnCount="2"
+        android:orientation="vertical"
         android:rowCount="2"
-        android:layout_weight="1">
+        android:useDefaultMargins="true">
 
         <ImageView
             android:id="@+id/imageItem"
@@ -21,6 +20,7 @@
             android:layout_height="67dp"
             android:layout_row="0"
             android:layout_column="0"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_launcher_background" />
 
 
@@ -32,17 +32,19 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:text="New Text"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/urlTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/urlTextView"
-            android:layout_column="1"
             android:layout_row="1"
-            android:text="New Text"
-            android:layout_columnWeight="1"/>
-
+            android:layout_column="1"
+            android:textColor="@color/colorPrimary"
+            android:layout_columnWeight="1"
+            android:text="New Text" />
 
 
     </GridLayout>

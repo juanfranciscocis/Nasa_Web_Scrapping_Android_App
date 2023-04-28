@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView5 = findViewById(R.id.imageView5);
         ImageView imageView6 = findViewById(R.id.imageView6);
         FloatingActionButton nextScreen = findViewById(R.id.floating_button);
-        FloatingActionButton debug = findViewById(R.id.debug);
 
         // add image views to an arrayList
         ImageView[] imageViews = {imageView1, imageView2, imageView3, imageView4, imageView5, imageView6};
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         }
         webScrapper1.execute(url);
 
-
         AtomicInteger counter = new AtomicInteger();
         AtomicInteger imagesInMemory = new AtomicInteger();
         AtomicReference<Boolean> imageClicked = new AtomicReference<>(false);
@@ -71,16 +70,13 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView1).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView1).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
-
-
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
+            WebScrapperImageSet.executeOnThreadPool(imageView1, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
 
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
@@ -88,16 +84,15 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView2).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView2).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
 
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
 
+            WebScrapperImageSet.executeOnThreadPool(imageView2, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
 
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
@@ -105,16 +100,15 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView3).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView3).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
 
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
 
+            WebScrapperImageSet.executeOnThreadPool(imageView3, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
 
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
@@ -122,16 +116,15 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView4).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView4).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
 
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
 
+            WebScrapperImageSet.executeOnThreadPool(imageView4, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
 
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
@@ -139,16 +132,15 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView5).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView5).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
 
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
 
+            WebScrapperImageSet.executeOnThreadPool(imageView5, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
 
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
@@ -156,21 +148,16 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-            }
-
-            if (counter.get() < imagesInMemory.get()) {
-                new WebScrapperImageSet(imageView6).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
-            } else {
                 counter.set(0);
-                new WebScrapperImageSet(imageView6).execute(data.getLinksScrapped1().get(counter.getAndIncrement()));
             }
 
+            if (counter.get() >= imagesInMemory.get()){
+                counter.set(1);
+            }
 
+            WebScrapperImageSet.executeOnThreadPool(imageView6, data.getLinksScrapped1().get(counter.get()));
+            counter.set(counter.get()+1);
         });
-
-
-        //TODO: CACHE! Y RANDOM! Y MULTIDOWNLOAD!, NO SE PUEDEN REPETIR
-
 
         //Floating button to go to the next screen
         nextScreen.setOnClickListener(v -> {
