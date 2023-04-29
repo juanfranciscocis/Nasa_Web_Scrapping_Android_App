@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -70,11 +71,16 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(0,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView1, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
@@ -84,13 +90,16 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(1,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView2, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
@@ -100,29 +109,34 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(2,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView3, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
-
         //WHEN A IMAGE IS CLICKED, LOAD THE IMAGE FROM THE INTERNET AND SHOW IT IN THE SAME IMAGE VIEW
         imageView4.setOnClickListener(v -> {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(3,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView4, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
@@ -132,13 +146,16 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(4,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView5, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
@@ -148,13 +165,16 @@ public class MainActivity extends AppCompatActivity {
             if (!imageClicked.get()){
                 imageClicked.set(true);
                 imagesInMemory.set(data.getLinksScrapped1().size());
-                counter.set(0);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
             if (counter.get() >= imagesInMemory.get()){
-                counter.set(1);
+                counter.set(new Random().nextInt(imagesInMemory.get()));
             }
-
+            //if the image is in data.getImagesInDisplay(), then get another random position
+            while (data.inImagesDisplay(counter.get())){
+                counter.set(new Random().nextInt(imagesInMemory.get()));
+            }
+            data.setImagesInDisplay(5,counter.get());
             WebScrapperImageSet.executeOnThreadPool(imageView6, data.getLinksScrapped1().get(counter.get()));
             counter.set(counter.get()+1);
         });
