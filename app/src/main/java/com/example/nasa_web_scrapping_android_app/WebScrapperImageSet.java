@@ -98,6 +98,10 @@ public class WebScrapperImageSet extends AsyncTask<String,Void, Bitmap> {
 
             try (InputStream inputStream = connection.getInputStream()) {
                 bitmap = BitmapFactory.decodeStream(inputStream);
+                // if bitmap is to large then scale it
+                if(bitmap.getByteCount() > 1000000){
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                }
                 Data.getInstance().setBitmaps(title, bitmap); // cache for later use
                 Log.d("Bitmap added to Data: ",Data.getInstance().getBitmaps().toString());
             }
